@@ -1,17 +1,19 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 
-const countries = inject('countriesKey')
+const { allCountries, filterCountries } = inject('countriesKey')
+
+const selectedRegion = ref('')
 
 </script>
 
 <template>
   <div>
-    <label for="filter-region" class="visually-hidden">Choose a region:</label>
+    <label for="filter-region" class="visually-hidden">Filter By Region:</label>
 
-    <select name="regions" id="filter-region">
+    <select name="regions" id="filter-region" @change="filterCountries(selectedRegion)" v-model="selectedRegion">
       <option value="">Filter By Region</option>
-      <option v-for="country in countries" :value="country.region" :key="country.id">{{ country.region }}</option>
+      <option v-for="country in allCountries" :value="country.region" :key="country.id">{{ country.region }}</option>
     </select>
   </div>
 </template>

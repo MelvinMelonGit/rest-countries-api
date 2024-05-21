@@ -1,22 +1,24 @@
 <script setup>
-import { inject, onMounted, ref } from 'vue'
+import { inject, ref } from 'vue'
 
 const data = ref(null)
 const isLoading = ref(true)
 const error = ref(null)
 
-const countries = inject('countriesKey')
+const { countries, filterCountries } = inject('countriesKey')
+
+filterCountries()
 
 </script>
 
 <template>
-  <div class="card" v-for="country in countries" :key="country.name.official">
+  <div class="card" v-for="country in countries" :key="country.name?.official">
     <div class="image">
-      <img :src="country.flags.svg" :alt="country.alt">
+      <img :src="country.flags?.svg" :alt="country.alt">
     </div>
     <div class="card-text">
-      <h3>{{ country.name.common }}</h3>
-      <p>Population: {{ country.population.toLocaleString() }}</p>
+      <h3>{{ country.name?.common }}</h3>
+      <p>Population: {{ country.population?.toLocaleString() }}</p>
       <p>Region: {{ country.region }}</p>
       <p>Capital: {{ country.capital?.toString() }}</p>
     </div>

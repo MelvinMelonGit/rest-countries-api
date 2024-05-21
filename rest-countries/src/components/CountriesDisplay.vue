@@ -1,8 +1,30 @@
 <script setup>
-import { ref } from 'vue'
-import Country from './Country.vue'
+import { provide, ref } from 'vue'
+import Country from './Country.vue';
 import FilterRegion from './FilterRegion.vue';
 import Search from './Search.vue';
+
+const allCountries = ref([])
+const countries = ref([])
+
+async function getCountries() {
+  const response = await fetch('https://restcountries.com/v3.1/all')
+  const data = await response.json()
+  allCountries.value = data //saved as copy
+  countries.value = data
+}
+
+getCountries()
+
+function filterCountries(region) {
+  countries.value = allCountries.value.filter(country => country.region === region)
+}
+
+provide('countriesKey', {
+  allCountries,
+  countries,
+  filterCountries
+})
 
 </script>
 
