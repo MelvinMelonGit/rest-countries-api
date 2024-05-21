@@ -17,19 +17,27 @@ function toggleColour() {
 
 <template>
   <nav>
-    <p>{{ title }}</p>
-    <p @click="toggleColour">{{ colourMode }}</p>
+    <div>
+      <h1>{{ title }}</h1>
+      <p @click="toggleColour">{{ colourMode }}</p>
+    </div>
   </nav>
 </template>
 
 <style scoped>
 nav {
-  display: flex;
-  justify-content: space-between;
+  padding: 2em 0;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1)
 }
 
-p {
-  padding: 1em 5em;
+div {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+}
+
+h1, p {
   font-weight: 800;
   font-style: normal;
 }

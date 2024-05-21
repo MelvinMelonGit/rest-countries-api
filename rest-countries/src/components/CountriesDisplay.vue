@@ -6,19 +6,30 @@ import Country from './Country.vue'
 
 <template>
   <main>
-    <Country />
+    <section>
+      <Country />
+    </section>
   </main>
 </template>
 
 <style scoped>
 main {
-  background-color: hsl(0, 0%, 98%);
-  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+section {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  padding: 5em;
+  gap: 4em;
+  width: 80%;
+  background-color: hsl(0, 0%, 98%);
+  margin-top: 5em;
+}
+
+@media screen and (min-width: 426px) and (max-width: 1024px) {
+  section { 
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>
