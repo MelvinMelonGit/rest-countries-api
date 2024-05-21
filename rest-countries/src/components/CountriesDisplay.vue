@@ -1,12 +1,18 @@
 <script setup>
 import { ref } from 'vue'
 import Country from './Country.vue'
+import FilterRegion from './FilterRegion.vue';
+import Search from './Search.vue';
 
 </script>
 
 <template>
   <main>
-    <section>
+    <section class="search-filter">
+      <Search />
+      <FilterRegion />
+    </section>
+    <section class="countries">
       <Country />
     </section>
   </main>
@@ -18,7 +24,13 @@ main {
   place-items: center;
 }
 
-section {
+section.search-filter  {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+section.countries {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 4em;
@@ -28,7 +40,7 @@ section {
 }
 
 @media screen and (min-width: 426px) and (max-width: 1024px) {
-  section { 
+  section.countries { 
     grid-template-columns: repeat(2, 1fr);
   }
 }
