@@ -36,14 +36,13 @@ async function getCountries() {
 getCountries()
 
 function filterCountries(region) {
-  countries.value = allCountries.value.filter(country => country.region === region)
+  if (region !== '') return countries.value = allCountries.value.filter(country => country.region === region)
+  countries.value = allCountries.value
 }
 
 provide('countriesKey', {
   allCountries,
   countries,
-  isLoading,
-  hasError,
   filterCountries
 })
 
@@ -56,6 +55,8 @@ provide('countriesKey', {
       <FilterRegion />
     </section>
     <section class="countries">
+      <div class="spinner" v-if="isLoading"></div>
+      <p v-if="hasError">Error Loading...</p>
       <Country />
     </section>
   </main>
