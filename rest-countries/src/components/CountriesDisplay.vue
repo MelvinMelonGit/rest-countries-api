@@ -14,10 +14,10 @@ async function getCountries() {
   try {
     isLoading.value = true
     hasError.value = ''
-    const response = await fetch('https://restcountries.com/v3.1/all')
+    const response = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,flags,population')
 
     if (!response.ok) {
-      throw new Error('Something is broken!')
+      throw new Error('Failed to get countries')
     }
 
     const data = await response.json()
@@ -25,9 +25,8 @@ async function getCountries() {
     allCountries.value = data //saved as copy
     countries.value = data
   } catch (error) {
-    // TypeError: Failed to fetch
-    console.log('There was an error', error)
-    hasError.value = 'There was an error'
+    console.error(error)
+    hasError.value = error
   } finally {
     isLoading.value = false
   }
@@ -61,13 +60,13 @@ provide('countriesKey', {
 
 <template>
   <main>
-    <section class="search-filter">
+    <div class="spinner" v-if="isLoading"></div>
+    <p class="error-message" v-if="hasError">{{ hasError }}</p>
+    <section class="search-filter" v-else-if="!isLoading">
       <Search />
       <FilterRegion />
     </section>
     <section class="countries">
-      <div class="spinner" v-if="isLoading"></div>
-      <p v-if="hasError">Error Loading...</p>
       <Country />
     </section>
   </main>
@@ -92,5 +91,27 @@ section.countries {
   width: 80%;
   margin-top: 3em;
   margin-bottom: 5em;
+}
+
+.spinner {
+   width: 56px;
+   height: 56px;
+   border-radius: 50%;
+   border: 9px solid;
+   border-color: #dbdcef;
+   border-right-color: #474bff;
+   animation: spinner-d3wgkg 1s infinite linear;
+   margin-top: 4em;
+}
+
+@keyframes spinner-d3wgkg {
+   to {
+      transform: rotate(1turn);
+   }
+}
+
+p.error-message {
+  font-size: 2rem;
+  margin-top: 4em;
 }
 </style>

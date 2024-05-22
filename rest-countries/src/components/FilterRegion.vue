@@ -5,6 +5,12 @@ const { allCountries, filterCountries } = inject('countriesKey')
 
 const selectedRegion = ref('')
 
+const allRegions = ref(new Set())
+
+allCountries.value.forEach(country => {
+  allRegions.value.add(country.region)
+})
+
 </script>
 
 <template>
@@ -13,7 +19,7 @@ const selectedRegion = ref('')
 
     <select name="regions" id="filter-region" @change="filterCountries(selectedRegion)" v-model="selectedRegion">
       <option value="">Filter By Region</option>
-      <option v-for="country in allCountries" :value="country.region" :key="country.id">{{ country.region }}</option>
+      <option v-for="region in allRegions" :value="region" :key="region">{{ region }}</option>
     </select>
   </div>
 </template>
