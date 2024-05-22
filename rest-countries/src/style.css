@@ -93,4 +93,5 @@ button:focus-visible {
 body {
   font-family: "Nunito Sans", sans-serif;
   font-optical-sizing: auto;
+  background-color: hsl(0, 0%, 98%);
 }

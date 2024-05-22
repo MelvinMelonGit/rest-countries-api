@@ -40,10 +40,16 @@ function filterCountries(region) {
   countries.value = allCountries.value
 }
 
+function searchCountry(search) {
+  if (search !== '') return countries.value = allCountries.value.filter(country => country.name?.common.toLowerCase() === search.toLowerCase())
+  countries.value = allCountries.value
+}
+
 provide('countriesKey', {
   allCountries,
   countries,
-  filterCountries
+  filterCountries,
+  searchCountry
 })
 
 </script>
@@ -65,7 +71,7 @@ provide('countriesKey', {
 <style scoped>
 main {
   display: grid;
-  place-items: center;
+  justify-items: center;
 }
 
 section.search-filter  {
@@ -79,8 +85,8 @@ section.countries {
   grid-template-columns: repeat(4, 1fr);
   gap: 4em;
   width: 80%;
-  background-color: hsl(0, 0%, 98%);
   margin-top: 5em;
+  margin-bottom: 5em;
 }
 
 @media screen and (min-width: 426px) and (max-width: 1024px) {

@@ -27,12 +27,13 @@ function toggleColour() {
 <style scoped>
 nav {
   padding: 2em 0;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1)
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 }
 
 div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 80%;
   margin: 0 auto;
 }
