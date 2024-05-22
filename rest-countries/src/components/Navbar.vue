@@ -16,7 +16,7 @@ function toggleColour() {
 </script>
 
 <template>
-  <nav>
+  <nav :class="{ dark: colourScheme }">
     <div>
       <h1>{{ title }}</h1>
       <p @click="toggleColour">{{ colourMode }}</p>
@@ -28,6 +28,13 @@ function toggleColour() {
 nav {
   padding: 2em 0;
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(207, 26%, 17%);
+}
+
+nav.dark {
+  background-color: hsl(207, 26%, 17%);
+  color: hsl(0, 0%, 100%);
 }
 
 div {
