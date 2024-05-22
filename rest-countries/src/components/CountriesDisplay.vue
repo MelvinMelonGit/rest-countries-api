@@ -1,6 +1,7 @@
 <script setup>
 import { provide, ref } from 'vue'
 import Country from './Country.vue';
+import CountryDetail from './CountryDetail.vue';
 import FilterRegion from './FilterRegion.vue';
 import Search from './Search.vue';
 
@@ -10,11 +11,14 @@ const countries = ref([])
 const isLoading = ref(false)
 const hasError = ref('')
 
+const showCountryDetail = ref(false)
+const countryDetail = ref({})
+
 async function getCountries() {
   try {
     isLoading.value = true
     hasError.value = ''
-    const response = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,flags,population')
+    const response = await fetch('https://restcountries.com/v3.1/all')
 
     if (!response.ok) {
       throw new Error('Failed to get countries')
@@ -49,11 +53,22 @@ function searchCountry(search) {
   countries.value = allCountries.value
 }
 
+function showSingleCountryDetail(country) {
+  showCountryDetail.value = true
+  countryDetail.value = country
+}
+
+function showCountries() {
+  showCountryDetail.value = false
+}
+
 provide('countriesKey', {
   allCountries,
   countries,
   filterCountries,
-  searchCountry
+  searchCountry,
+  showSingleCountryDetail,
+  showCountries
 })
 
 </script>
@@ -62,12 +77,15 @@ provide('countriesKey', {
   <main>
     <div class="spinner" v-if="isLoading"></div>
     <p class="error-message" v-if="hasError">{{ hasError }}</p>
-    <section class="search-filter" v-else-if="!isLoading">
+    <section class="search-filter" v-else-if="!isLoading" v-if="!showCountryDetail">
       <Search />
       <FilterRegion />
     </section>
-    <section class="countries">
-      <Country />
+    <section class="countries" v-if="!showCountryDetail">
+      <Country/>
+    </section>
+    <section class="country-detail" v-if="showCountryDetail">
+      <CountryDetail v-if="showCountryDetail" :countryName="countryDetail"/>
     </section>
   </main>
 </template>
@@ -91,6 +109,11 @@ section.countries {
   width: 80%;
   margin-top: 3em;
   margin-bottom: 5em;
+}
+
+section.country-detail {
+  display: grid;
+  width: 80%;
 }
 
 .spinner {

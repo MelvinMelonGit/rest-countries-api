@@ -1,17 +1,17 @@
 <script setup>
 import { inject } from 'vue'
 
-const { countries } = inject('countriesKey')
+const { countries, showSingleCountryDetail } = inject('countriesKey')
 
 </script>
 
 <template>
-  <div class="card" v-for="country in countries" :key="country.name?.official">
+  <div class="card" v-for="country in countries" :key="country.name?.official" @click="showSingleCountryDetail(country)">
     <div class="image">
       <img :src="country.flags?.svg" :alt="country.alt">
     </div>
     <div class="card-text">
-      <h3>{{ country.name?.common }}</h3>
+      <h2>{{ country.name?.common }}</h2>
       <p>Population: {{ country.population?.toLocaleString() }}</p>
       <p>Region: {{ country.region }}</p>
       <p>Capital: {{ country.capital?.toString() }}</p>
@@ -23,6 +23,12 @@ const { countries } = inject('countriesKey')
 .card {
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
   border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.1s;
 }
 
 .card-text {

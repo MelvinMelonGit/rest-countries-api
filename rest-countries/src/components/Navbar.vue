@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 
-const title = ref('Where In the world?')
+const title = ref('Where in the world?')
 
 const colourScheme = ref(false)
 
@@ -41,5 +41,9 @@ div {
 h1, p {
   font-weight: 800;
   font-style: normal;
+}
+
+p {
+  cursor: pointer;
 }
 </style>

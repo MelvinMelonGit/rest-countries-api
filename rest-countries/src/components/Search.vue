@@ -10,7 +10,6 @@ const searchValue = ref('')
 <template>
   <div>
     <label for="search-country" class="visually-hidden">Search for a country...</label>
-
     <input type="text" id="search-country" name="search-country" placeholder="Search for a country..." @keyup="searchCountry(searchValue)" v-model="searchValue"/>
   </div>
 </template>
@@ -22,6 +21,7 @@ input {
   border: none;
   padding: 1.5em;
   margin-top: 3em;
+  width: 30vw;
 }
 
 .visually-hidden { 
