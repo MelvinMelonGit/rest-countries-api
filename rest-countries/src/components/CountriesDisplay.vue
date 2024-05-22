@@ -7,11 +7,30 @@ import Search from './Search.vue';
 const allCountries = ref([])
 const countries = ref([])
 
+const isLoading = ref(false)
+const hasError = ref('')
+
 async function getCountries() {
-  const response = await fetch('https://restcountries.com/v3.1/all')
-  const data = await response.json()
-  allCountries.value = data //saved as copy
-  countries.value = data
+  try {
+    isLoading.value = true
+    hasError.value = ''
+    const response = await fetch('https://restcountries.com/v3.1/all')
+
+    if (!response.ok) {
+      throw new Error('Something is broken!')
+    }
+
+    const data = await response.json()
+
+    allCountries.value = data //saved as copy
+    countries.value = data
+  } catch (error) {
+    // TypeError: Failed to fetch
+    console.log('There was an error', error)
+    hasError.value = 'There was an error'
+  } finally {
+    isLoading.value = false
+  }
 }
 
 getCountries()
@@ -23,6 +42,8 @@ function filterCountries(region) {
 provide('countriesKey', {
   allCountries,
   countries,
+  isLoading,
+  hasError,
   filterCountries
 })
 

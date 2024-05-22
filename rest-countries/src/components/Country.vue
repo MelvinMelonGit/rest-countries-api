@@ -1,17 +1,13 @@
 <script setup>
-import { inject, ref } from 'vue'
+import { inject } from 'vue'
 
-const data = ref(null)
-const isLoading = ref(true)
-const error = ref(null)
-
-const { countries, filterCountries } = inject('countriesKey')
-
-filterCountries()
+const { countries, isLoading, hasError } = inject('countriesKey')
 
 </script>
 
 <template>
+  <p v-if="isLoading">Loading Countries...</p>
+  <p v-if="hasError">Error Loading...</p>
   <div class="card" v-for="country in countries" :key="country.name?.official">
     <div class="image">
       <img :src="country.flags?.svg" :alt="country.alt">
