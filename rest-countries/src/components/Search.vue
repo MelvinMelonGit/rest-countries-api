@@ -9,13 +9,21 @@ const searchValue = ref('')
 
 <template>
   <div>
-    <label for="name" class="visually-hidden">Name (4 to 8 characters):</label>
+    <label for="search-country" class="visually-hidden">Search for a country...</label>
 
-    <input type="text" id="name" name="name" size="10" placeholder="Search" @keyup="searchCountry(searchValue)" v-model="searchValue"/>
+    <input type="text" id="search-country" name="search-country" placeholder="Search for a country..." @keyup="searchCountry(searchValue)" v-model="searchValue"/>
   </div>
 </template>
 
 <style scoped>
+input {
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  border-radius: 0.3em;
+  border: none;
+  padding: 1.5em;
+  margin-top: 3em;
+}
+
 .visually-hidden { 
     border: 0;
     padding: 0;
@@ -29,4 +37,5 @@ const searchValue = ref('')
     clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
     white-space: nowrap; /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
 }
+
 </style>

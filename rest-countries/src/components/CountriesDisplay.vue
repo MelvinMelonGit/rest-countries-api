@@ -41,7 +41,12 @@ function filterCountries(region) {
 }
 
 function searchCountry(search) {
-  if (search !== '') return countries.value = allCountries.value.filter(country => country.name?.common.toLowerCase() === search.toLowerCase())
+  if (search !== '') return countries.value = allCountries.value.filter(country => {
+    const searchLength = search.length
+    const countryName = country.name?.common.toLowerCase()
+    //user does not need to type the entire country name for search results to filter
+    return countryName.substring(0, searchLength) === search.toLowerCase().substring(0, searchLength)
+  })
   countries.value = allCountries.value
 }
 
@@ -82,16 +87,10 @@ section.search-filter  {
 
 section.countries {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
   gap: 4em;
   width: 80%;
-  margin-top: 5em;
+  margin-top: 3em;
   margin-bottom: 5em;
-}
-
-@media screen and (min-width: 426px) and (max-width: 1024px) {
-  section.countries { 
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 </style>

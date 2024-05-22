@@ -19,6 +19,14 @@ const selectedRegion = ref('')
 </template>
 
 <style scoped>
+select{
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  border-radius: 0.3em;
+  border: none;
+  padding: 1.5em;
+  margin-top: 3em;
+}
+
 .visually-hidden { 
     border: 0;
     padding: 0;
